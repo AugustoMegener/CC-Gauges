@@ -1,0 +1,7 @@
+{
+  "parent": "extra_gauges:block/template_gauge",
+  "textures": {
+    "particle": "ccgauges:block/computed_panel",
+    "texture": "ccgauges:block/computed_panel"
+  }
+}

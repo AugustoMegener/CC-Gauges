@@ -75,7 +75,7 @@ side = "BOTH"
 [[dependencies."${mod_id}"]]
     modId="kore"
     type='required'
-    versionRange="[0.1.3g,)"
+    versionRange="[0.1.4c,)"
     ordering="NONE"
     side="BOTH"
 
@@ -83,6 +83,20 @@ side = "BOTH"
     modId="computercraft"
     type='required'
     versionRange="$cctVersionRange"
+    ordering="NONE"
+    side="BOTH"
+
+[[dependencies."${mod_id}"]]
+    modId="create"
+    type="required"
+    versionRange="[6.0.6,6.1.0)"
+    ordering="NONE"
+    side="BOTH"
+
+[[dependencies."${mod_id}"]]
+    modId="extra_gauges"
+    type="required"
+    versionRange="[2.0.5,)"
     ordering="NONE"
     side="BOTH"
 

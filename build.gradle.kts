@@ -74,39 +74,54 @@ repositories {
             includeGroup("cc.tweaked")
         }
     }
+    maven("https://maven.createmod.net")
+    maven("https://maven.ithundxr.dev/snapshots")
+    maven("https://maven.liukrast.net/")
+    maven("https://maven.blamejared.com/")
+
 }
 
 dependencies {
     implementation("net.neoforged:neoforge:${project.extra["neo_version"]}")
     implementation("thedarkcolour:kotlinforforge-neoforge:5.3.0")
 
-    implementation("augustomegener:Kore:0.1.3g")
-    ksp("augustomegener.kore:ksp:0.1.3g")
+    implementation("augustomegener:Kore:0.1.4c")
+    ksp("augustomegener.kore:ksp:0.1.4c")
 
-    compileOnly("cc.tweaked:cc-tweaked-${project.extra["minecraft_version"]}-forge-api:${project.extra["cctVersion"]}")
-    runtimeOnly("cc.tweaked:cc-tweaked-${project.extra["minecraft_version"]}-forge:${project.extra["cctVersion"]}")
+    compileOnly("cc.tweaked:cc-tweaked-${property("minecraft_version")}-core-api:${property("cctVersion")}")
+    compileOnly("cc.tweaked:cc-tweaked-${property("minecraft_version")}-forge-api:${property("cctVersion")}")
+    implementation("cc.tweaked:cc-tweaked-${property("minecraft_version")}-forge:${property("cctVersion")}")
+
+    implementation("com.simibubi.create:create-${property("minecraft_version")}:${property("create_version")}:slim") { isTransitive = false }
+    implementation("net.createmod.ponder:Ponder-NeoForge-${property("minecraft_version")}:${property("ponder_version")}")
+    compileOnly("dev.engine-room.flywheel:flywheel-neoforge-api-${property("minecraft_version")}:${property("flywheel_version")}")
+    runtimeOnly("dev.engine-room.flywheel:flywheel-neoforge-${property("minecraft_version")}:${property("flywheel_version")}")
+    implementation("com.tterrag.registrate:Registrate:${property("registrate_version")}")
+
+    implementation("net.liukrast:extra_gauges-${property("minecraft_version")}:${property("extra_gauges_version")}")
 }
 
 tasks.withType<ProcessResources>().configureEach {
     val replaceProperties = mapOf(
-            "minecraft_version" to project.extra["minecraft_version"],
-            "minecraft_version_range" to project.extra["minecraft_version_range"],
-            "neo_version" to project.extra["neo_version"],
-            "neo_version_range" to project.extra["neo_version_range"],
-            "loader_version_range" to project.extra["loader_version_range"],
-            "mod_id" to project.extra["mod_id"],
-            "mod_name" to project.extra["mod_name"],
-            "mod_license" to project.extra["mod_license"],
-            "mod_version" to project.extra["mod_version"],
-            "mod_authors" to project.extra["mod_authors"],
-            "mod_description" to project.extra["mod_description"],
-            "pack_format_number" to project.extra["pack_format_number"]
+        "minecraft_version" to project.extra["minecraft_version"],
+        "minecraft_version_range" to project.extra["minecraft_version_range"],
+        "neo_version" to project.extra["neo_version"],
+        "neo_version_range" to project.extra["neo_version_range"],
+        "loader_version_range" to project.extra["loader_version_range"],
+        "mod_id" to project.extra["mod_id"],
+        "mod_name" to project.extra["mod_name"],
+        "mod_license" to project.extra["mod_license"],
+        "mod_version" to project.extra["mod_version"],
+        "mod_authors" to project.extra["mod_authors"],
+        "mod_description" to project.extra["mod_description"],
+        "pack_format_number" to project.extra["pack_format_number"],
+        "cctVersionRange" to project.extra["cctVersionRange"]
     )
 
     inputs.properties(replaceProperties)
 
     filesMatching(listOf("META-INF/neoforge.mods.toml", "pack.mcmeta")) {
-        expand(replaceProperties + mapOf("project" to project))
+        expand(replaceProperties)
     }
 }
 

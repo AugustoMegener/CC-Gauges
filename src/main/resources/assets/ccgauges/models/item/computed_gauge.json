@@ -1,0 +1,7 @@
+{
+  "parent": "create:block/factory_gauge/item",
+  "textures": {
+    "0": "ccgauges:block/computed_panel",
+    "particle": "ccgauges:block/computed_panel"
+  }
+}
