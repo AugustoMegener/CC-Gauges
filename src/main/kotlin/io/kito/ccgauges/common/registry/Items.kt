@@ -1,6 +1,5 @@
 package io.kito.ccgauges.common.registry
 
-import io.kito.ccgauges.DG.blockModel
 import io.kito.ccgauges.DG.named
 import io.kito.ccgauges.ID
 import io.kito.ccgauges.common.registry.PanelTypes.computedGauge

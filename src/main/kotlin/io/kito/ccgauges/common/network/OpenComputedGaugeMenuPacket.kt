@@ -5,7 +5,7 @@ import com.simibubi.create.content.logistics.factoryBoard.FactoryPanelBlockEntit
 import dan200.computercraft.client.gui.ComputerScreen
 import dan200.computercraft.shared.network.container.ComputerContainerData
 import io.kito.ccgauges.Ccgauges.local
-import io.kito.ccgauges.ComputedPanelBehaviour
+import io.kito.ccgauges.common.create.behaviour.ComputedPanelBehaviour
 import io.kito.kore.common.data.codec.stream.Send
 import io.kito.kore.common.data.codec.stream.StreamCodecSource
 import io.kito.kore.common.network.Packet

@@ -4,7 +4,7 @@ import com.simibubi.create.content.logistics.factoryBoard.FactoryPanelBlock.Pane
 import com.simibubi.create.content.logistics.factoryBoard.FactoryPanelBlockEntity
 import dan200.computercraft.shared.computer.inventory.ComputerMenuWithoutInventory
 import dan200.computercraft.shared.network.container.ComputerContainerData
-import io.kito.ccgauges.ComputedPanelBehaviour
+import io.kito.ccgauges.common.create.behaviour.ComputedPanelBehaviour
 import io.kito.kore.common.world.inventory.RegisterMenu
 import io.kito.kore.common.world.inventory.RegisterMenu.Companion.menuType
 import net.minecraft.network.RegistryFriendlyByteBuf

@@ -2,12 +2,13 @@ package io.kito.ccgauges.client.gui.screen
 
 import dan200.computercraft.client.gui.ClientInputHandler
 import dan200.computercraft.client.gui.widgets.TerminalWidget
-import io.kito.ccgauges.ComputedPanelBehaviour
+import io.kito.ccgauges.common.create.behaviour.ComputedPanelBehaviour
 import io.kito.ccgauges.common.world.inventory.ComputedGaugeMenu
 import io.kito.kore.common.event.KSubscribe
 import io.kito.kore.common.reflect.Scan
 import io.kito.kore.common.world.inventory.RegisterMenu.Companion.menuType
 import net.liukrast.eg.api.logistics.board.BasicPanelScreen
+import net.liukrast.eg.content.logistics.board.StringPanelScreen
 import net.minecraft.client.gui.screens.inventory.ContainerScreen
 import net.minecraft.client.gui.screens.inventory.MenuAccess
 import net.neoforged.neoforge.client.event.RegisterMenuScreensEvent
@@ -29,7 +30,7 @@ class ComputedPanelScreen(val gaugeMenu: ComputedGaugeMenu, behaviour: ComputedP
                 (height - gaugeMenu.terminal.height * 9) / 2 - 10)
         )
 
-        setFocused(terminalWidget)
+        focused = terminalWidget
     }
 
     override fun getWindowWidth() = gaugeMenu.terminal.width * 4 + 30

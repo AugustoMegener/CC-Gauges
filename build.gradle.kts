@@ -51,6 +51,8 @@ runs {
     }
 }
 
+
+
 sourceSets {
     named("main") {
         resources.srcDir("src/generated/resources")
@@ -85,8 +87,8 @@ dependencies {
     implementation("net.neoforged:neoforge:${project.extra["neo_version"]}")
     implementation("thedarkcolour:kotlinforforge-neoforge:5.3.0")
 
-    implementation("augustomegener:Kore:0.1.4c")
-    ksp("augustomegener.kore:ksp:0.1.4c")
+    implementation("augustomegener:Kore:0.1.5d")
+    ksp("augustomegener.kore:ksp:0.1.5d")
 
     compileOnly("cc.tweaked:cc-tweaked-${property("minecraft_version")}-core-api:${property("cctVersion")}")
     compileOnly("cc.tweaked:cc-tweaked-${property("minecraft_version")}-forge-api:${property("cctVersion")}")

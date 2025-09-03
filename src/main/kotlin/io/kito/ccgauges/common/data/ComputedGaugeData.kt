@@ -1,9 +1,6 @@
 package io.kito.ccgauges.common.data
 
 import com.mojang.serialization.Codec
-import com.mojang.serialization.DataResult
-import com.mojang.serialization.Encoder
-import com.mojang.serialization.codecs.RecordCodecBuilder
 import dan200.computercraft.api.ComputerCraftAPI
 import dan200.computercraft.shared.computer.core.ComputerFamily
 import dan200.computercraft.shared.computer.core.ServerComputer
@@ -12,16 +9,21 @@ import dan200.computercraft.shared.computer.core.TerminalSize
 import dan200.computercraft.shared.config.ConfigSpec
 import dan200.computercraft.shared.network.container.ComputerContainerData
 import dan200.computercraft.shared.util.IDAssigner
-import io.kito.ccgauges.ComputedGaugeDisplaySource
-import io.kito.ccgauges.ComputedPanelBehaviour
+import io.kito.ccgauges.common.create.behaviour.ComputedGaugeDisplaySource
+import io.kito.ccgauges.common.create.behaviour.ComputedPanelBehaviour
+import io.kito.ccgauges.common.registry.ComputerComponents.gaugeComponent
 import io.kito.ccgauges.common.registry.Items.computedGaugeItem
 import io.kito.kore.common.data.Save
 import io.kito.kore.common.data.codec.CodecSource
-import io.kito.kore.common.data.codec.KCodecSerializer
 import io.kito.kore.common.data.nbt.KNBTSerializable
 import io.kito.kore.common.reflect.Scan
 import net.minecraft.core.UUIDUtil
+import net.minecraft.network.chat.Component
+import net.minecraft.network.chat.Component.literal
+import net.minecraft.network.chat.ComponentUtils
+import net.minecraft.network.chat.MutableComponent
 import net.minecraft.server.level.ServerLevel
+import net.neoforged.neoforge.common.util.JsonUtils
 import java.util.*
 import kotlin.math.max
 import kotlin.math.min
@@ -33,23 +35,29 @@ class ComputedGaugeData : KNBTSerializable {
     var instanceId = UUID.randomUUID()
 
     @Save
-    var computerId: Int = -1
+    var computerId = -1
 
     @Save
-    var label = ""
+    var renderBulb = false
 
     @Save
-    var number: Int = 0
+    var bulbColor = 0xffffff
 
     @Save
-    var redstoneSignal: Int = 0
+    var tip: Component = literal("")
+
+    @Save
+    var integer = 0
+
+    @Save
+    var redstoneSignal = 0
         set(value) { field = max(min(value, 15), 0) }
 
     @Save
-    var string: String = ""
+    var string = ""
 
     @Save
-    var displaySource: ComputedGaugeDisplaySource = ComputedGaugeDisplaySource.STRING
+    var displaySource = ComputedGaugeDisplaySource.STRING
 
     fun computer(panel: ComputedPanelBehaviour): ServerComputer {
         val level = panel.blockEntity.level!!
@@ -66,7 +74,7 @@ class ComputedGaugeData : KNBTSerializable {
             computer = ServerComputer(
                 level as ServerLevel, panel.blockEntity.blockPos,
                 ServerComputer.properties(computerId, ComputerFamily.ADVANCED)
-                    .label(label)
+                    .addComponent(gaugeComponent, panel.brain)
                     .terminalSize(TerminalSize(ConfigSpec.computerTermWidth.get(), ConfigSpec.computerTermHeight.get()))
             )
 
@@ -84,6 +92,5 @@ class ComputedGaugeData : KNBTSerializable {
 
         @CodecSource
         fun uuidCodec() = UUIDUtil.CODEC
-
     }
 }
