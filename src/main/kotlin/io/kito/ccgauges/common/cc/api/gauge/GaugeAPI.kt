@@ -29,7 +29,9 @@ class GaugeAPI(val gauge: IGaugeAcess) : ILuaAPI {
     @LuaFunction fun redstoneInputs() = gauge.restoneInputs.toTypedArray()
     @LuaFunction fun stringInputs() = gauge.stringInputs.toTypedArray()
     @LuaFunction fun filterInputs() = gauge.filterInputs.map {
-        ItemStack.CODEC.encodeStart(jsonOps, it.item()).orThrow.asMap()
+        val item = it.item()
+        val data = ItemStack.CODEC.encodeStart(jsonOps, item).orThrow
+        data.asMap()
     }.toTypedArray()
 
     @LuaFunction fun getDisplaySource() = gauge.displaySource
@@ -45,9 +47,6 @@ class GaugeAPI(val gauge: IGaugeAcess) : ILuaAPI {
 
     @LuaFunction fun isRenderingBulb() = gauge.renderBulb
     @LuaFunction fun setRenderBulb(value: Boolean) { gauge.renderBulb = value }
-
-    @LuaFunction fun getBulbColor() = gauge.bulbColor
-    @LuaFunction fun setBulbColor(value: Int) { gauge.bulbColor = value }
 
     @LuaFunction fun getTip() = Component.Serializer.toJson(gauge.tip, gauge.level.registryAccess())
 

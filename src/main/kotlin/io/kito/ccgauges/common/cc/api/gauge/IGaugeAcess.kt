@@ -20,7 +20,6 @@ interface IGaugeAcess {
     var displaySource: ComputedGaugeDisplaySource
 
     var renderBulb: Boolean
-    var bulbColor: Int
     var tip: Component
 
     fun setIntOutput(value: Int)

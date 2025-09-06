@@ -1,5 +1,6 @@
 package io.kito.ccgauges.common.cc.api.gauge
 
+import io.kito.ccgauges.common.Util.allFilterInputs
 import io.kito.ccgauges.common.Util.allInputs
 import io.kito.ccgauges.common.create.behaviour.ComputedGaugeDisplaySource
 import io.kito.ccgauges.common.create.behaviour.ComputedPanelBehaviour
@@ -16,19 +17,22 @@ class GaugeBrain(private val gauge: ComputedPanelBehaviour) : IGaugeAcess {
     override val intInputs get() = gauge.allInputs(INTEGER.get())
     override val restoneInputs get() = gauge.allInputs(REDSTONE.get())
     override val stringInputs get() = gauge.allInputs(STRING.get())
-    override val filterInputs get() = gauge.allInputs(FILTER.get())
+    override val filterInputs get() = gauge.allFilterInputs()
 
     override var displaySource
         get() =  gauge.data.displaySource
-        set(value) { gauge.data.displaySource = value }
+        set(value) {
+            gauge.data.displaySource = value
+            gauge.blockEntity.setChanged()
+        }
 
     override var renderBulb
         get() = gauge.data.renderBulb
-        set(value) { gauge.data.renderBulb = value }
+        set(value) {
+            gauge.data.renderBulb = value
+            gauge.blockEntity.setChanged()
+        }
 
-    override var bulbColor
-        get() = gauge.data.bulbColor
-        set(value) { gauge.data.bulbColor = value }
 
     override var tip
         get() = gauge.data.tip

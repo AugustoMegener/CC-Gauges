@@ -2,6 +2,7 @@ package io.kito.ccgauges.common.data
 
 import com.mojang.serialization.Codec
 import dan200.computercraft.api.ComputerCraftAPI
+import dan200.computercraft.api.component.ComputerComponent
 import dan200.computercraft.shared.computer.core.ComputerFamily
 import dan200.computercraft.shared.computer.core.ServerComputer
 import dan200.computercraft.shared.computer.core.ServerContext
@@ -17,6 +18,8 @@ import io.kito.kore.common.data.Save
 import io.kito.kore.common.data.codec.CodecSource
 import io.kito.kore.common.data.nbt.KNBTSerializable
 import io.kito.kore.common.reflect.Scan
+import io.kito.kore.util.UNCHECKED_CAST
+import net.liukrast.eg.content.logistics.board.StringPanelBehaviour
 import net.minecraft.core.UUIDUtil
 import net.minecraft.network.chat.Component
 import net.minecraft.network.chat.Component.literal
@@ -39,9 +42,6 @@ class ComputedGaugeData : KNBTSerializable {
 
     @Save
     var renderBulb = false
-
-    @Save
-    var bulbColor = 0xffffff
 
     @Save
     var tip: Component = literal("")
@@ -75,6 +75,10 @@ class ComputedGaugeData : KNBTSerializable {
                 level as ServerLevel, panel.blockEntity.blockPos,
                 ServerComputer.properties(computerId, ComputerFamily.ADVANCED)
                     .addComponent(gaugeComponent, panel.brain)
+                    .also { panel.computerComponents.forEach { (k, i) ->
+                        @Suppress(UNCHECKED_CAST)
+                        it.addComponent(k as ComputerComponent<Any>, i)
+                    } }
                     .terminalSize(TerminalSize(ConfigSpec.computerTermWidth.get(), ConfigSpec.computerTermHeight.get()))
             )
 
