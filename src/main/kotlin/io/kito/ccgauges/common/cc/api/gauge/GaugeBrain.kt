@@ -1,12 +1,10 @@
 package io.kito.ccgauges.common.cc.api.gauge
 
-import io.kito.ccgauges.common.Util.allFilterInputs
+
 import io.kito.ccgauges.common.Util.allInputs
-import io.kito.ccgauges.common.create.behaviour.ComputedGaugeDisplaySource
 import io.kito.ccgauges.common.create.behaviour.ComputedPanelBehaviour
 import net.liukrast.eg.registry.EGPanelConnections.*
 import net.minecraft.core.BlockPos
-import net.minecraft.network.chat.Component
 import net.minecraft.world.item.ItemStack
 
 class GaugeBrain(private val gauge: ComputedPanelBehaviour) : IGaugeAcess {
@@ -17,7 +15,9 @@ class GaugeBrain(private val gauge: ComputedPanelBehaviour) : IGaugeAcess {
     override val intInputs get() = gauge.allInputs(INTEGER.get())
     override val restoneInputs get() = gauge.allInputs(REDSTONE.get())
     override val stringInputs get() = gauge.allInputs(STRING.get())
-    override val filterInputs get() = gauge.allFilterInputs()
+    override val filterInputs get() = gauge.allInputs(FILTER.get())
+
+    override val targetAmount: Int get() = gauge.amount
 
     override var displaySource
         get() =  gauge.data.displaySource

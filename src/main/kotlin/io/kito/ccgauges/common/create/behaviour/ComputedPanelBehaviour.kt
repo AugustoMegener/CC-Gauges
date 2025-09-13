@@ -5,15 +5,18 @@ import com.simibubi.create.content.logistics.factoryBoard.FactoryPanelBlock
 import com.simibubi.create.content.logistics.factoryBoard.FactoryPanelBlockEntity
 import com.simibubi.create.foundation.blockEntity.SmartBlockEntity
 import dan200.computercraft.api.component.ComputerComponent
+import io.kito.ccgauges.common.Util.allInputs
 import io.kito.ccgauges.common.cc.api.gauge.GaugeBrain
 import io.kito.ccgauges.common.data.ComputedGaugeData
 import io.kito.ccgauges.common.network.OpenComputedGaugeMenuPacket
 import io.kito.ccgauges.common.registry.Items.computedGaugeItem
+import io.kito.ccgauges.common.registry.PanelConnections.peripheralConnection
 import io.kito.ccgauges.common.registry.PartialModels.computedGaugeModel
 import io.kito.ccgauges.common.world.inventory.ComputedGaugeMenu
 import net.createmod.catnip.math.VecHelper
 import net.liukrast.eg.api.logistics.board.AbstractPanelBehaviour
 import net.liukrast.eg.api.registry.PanelType
+import net.liukrast.eg.content.logistics.board.IntPanelBehaviour
 import net.liukrast.eg.registry.EGPanelConnections.*
 import net.minecraft.core.HolderLookup
 import net.minecraft.nbt.CompoundTag
@@ -75,6 +78,13 @@ open class ComputedPanelBehaviour(panel: PanelType<*>,
             }
             computer.keepAlive()
         }
+    }
+
+    override fun checkForRedstoneInput() {
+        super.checkForRedstoneInput()
+
+        val a = allInputs(INTEGER.get())
+        a // empty list
     }
 
     override fun createMenu(id: Int, inv: Inventory, player: Player) = ComputedGaugeMenu(id, inv, this)

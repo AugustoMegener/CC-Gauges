@@ -31,7 +31,4 @@ class ComputedGaugeMenu: ComputerMenuWithoutInventory
             .panels!![buf.readEnum(PanelSlot::class.java)]!! as ComputedPanelBehaviour
 
     }
-
-
-
 }

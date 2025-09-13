@@ -17,6 +17,8 @@ interface IGaugeAcess {
     val stringInputs: Collection<String>
     val filterInputs: Collection<FilterItemStack>
 
+    val targetAmount: Int
+
     var displaySource: ComputedGaugeDisplaySource
 
     var renderBulb: Boolean

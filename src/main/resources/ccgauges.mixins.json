@@ -4,6 +4,7 @@
   "package": "io.kito.ccgauges.mixin",
   "compatibilityLevel": "JAVA_21",
   "mixins": [
+    "EGPanelConnectionsMixin"
   ],
   "client": [
   ],
